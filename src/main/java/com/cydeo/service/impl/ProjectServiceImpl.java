@@ -14,7 +14,7 @@ public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> im
     @Override
     public ProjectDTO save(ProjectDTO project) {
 
-        if(project.getProjectStatus()==null)
+        if(project.getProjectStatus()== null)  // whenever we create the project set the project status to OPEN
             project.setProjectStatus(Status.OPEN);
 
         return super.save(project.getProjectCode(),project);
@@ -33,10 +33,9 @@ public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> im
     @Override
     public void update(ProjectDTO object) {
 
-        if(object.getProjectStatus()==null){
+        if(object.getProjectStatus()==null){  // project already have a status from DB, then before update the object we are setting the project status, since is not coming form the Form
             object.setProjectStatus(findById(object.getProjectCode()).getProjectStatus());
         }
-
         super.update(object.getProjectCode(),object);
     }
 
@@ -47,7 +46,6 @@ public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> im
 
     @Override
     public void complete(ProjectDTO project) {
-
         project.setProjectStatus(Status.COMPLETE);
 
     }
